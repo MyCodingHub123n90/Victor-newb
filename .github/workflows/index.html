@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VictorNewb - Multi-Purpose Platform</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/themes.css" />
+    <link rel="stylesheet" href="css/auth.css" />
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- ===== AUTH MODAL ===== -->
+    <div id="authModal" class="auth-modal">
+      <div class="auth-container">
+        <!-- Login Form -->
+        <div id="loginForm" class="auth-form active">
+          <div class="auth-header">
+            <h1 class="auth-logo">VN</h1>
+            <h2>Welcome Back</h2>
+            <p>Login to access VictorNewb</p>
+          </div>
+          <form id="loginFormElement" onsubmit="return Auth.login(event)">
+            <div class="form-group">
+              <label>Email Address</label>
+              <input
+                type="email"
+                id="loginEmail"
+                placeholder="you@example.com"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input
+                type="password"
+                id="loginPassword"
+                placeholder="••••••••"
+                required
+              />
+            </div>
+            <div id="loginError" class="auth-error"></div>
+            <button type="submit" class="btn btn-primary auth-btn">
+              Login →
+            </button>
+            <p class="auth-switch">
+              Don't have an account?
+              <span onclick="Auth.showSignup()">Sign Up</span>
+            </p>
+          </form>
+        </div>
+
+        <!-- Signup Form -->
+        <div id="signupForm" class="auth-form">
+          <div class="auth-header">
+            <h1 class="auth-logo">VN</h1>
+            <h2>Create Account</h2>
+            <p>Join VictorNewb today</p>
+          </div>
+          <form id="signupFormElement" onsubmit="return Auth.signup(event)">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input
+                type="text"
+                id="signupName"
+                placeholder="Victor Newb"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input
+                type="email"
+                id="signupEmail"
+                placeholder="you@example.com"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label>Username</label>
+              <input
+                type="text"
+                id="signupUsername"
+                placeholder="victornewb"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input
+                type="password"
+                id="signupPassword"
+                placeholder="Min 6 characters"
+                required
+                minlength="6"
+              />
+            </div>
+            <div class="form-group">
+              <label>Confirm Password</label>
+              <input
+                type="password"
+                id="signupConfirm"
+                placeholder="Confirm password"
+                required
+              />
+            </div>
+            <div id="signupError" class="auth-error"></div>
+            <button type="submit" class="btn btn-primary auth-btn">
+              Create Account →
+            </button>
+            <p class="auth-switch">
+              Already have an account?
+              <span onclick="Auth.showLogin()">Login</span>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== MAIN APP (Hidden until auth) ===== -->
+    <div id="appContainer" style="display: none">
+      <!-- Sidebar Navigation -->
+      <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <h1 class="logo">VN</h1>
+          <span class="logo-text">VictorNewb</span>
+        </div>
+
+        <ul class="nav-links">
+          <li data-page="dashboard" class="active">
+            <span class="icon">📊</span>
+            <span>Dashboard</span>
+          </li>
+          <li data-page="social">
+            <span class="icon">👥</span>
+            <span>Social</span>
+          </li>
+          <li data-page="portfolio">
+            <span class="icon">🎨</span>
+            <span>Portfolio</span>
+          </li>
+          <li data-page="ecommerce">
+            <span class="icon">🛒</span>
+            <span>Store</span>
+          </li>
+          <li data-page="game">
+            <span class="icon">🎮</span>
+            <span>Game</span>
+          </li>
+        </ul>
+
+        <div class="sidebar-footer">
+          <div class="user-profile" id="userProfile">
+            <div class="user-avatar" id="userAvatar">VN</div>
+            <div class="user-info">
+              <div class="user-name" id="userName">Victor Newb</div>
+              <div class="user-email" id="userEmail">victor@example.com</div>
+            </div>
+          </div>
+          <button id="themeToggle" class="theme-btn">🌓 Toggle Theme</button>
+          <button
+            id="logoutBtn"
+            class="theme-btn"
+            style="color: #ef4444; border-color: #ef4444"
+          >
+            🚪 Logout
+          </button>
+        </div>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <div id="pageContainer" class="page-container"></div>
+      </main>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/auth.js"></script>
+    <script src="js/router.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/social.js"></script>
+    <script src="js/portfolio.js"></script>
+    <script src="js/ecommerce.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

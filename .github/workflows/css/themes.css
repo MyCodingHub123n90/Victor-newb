@@ -1,0 +1,25 @@
+/* ===== LIGHT THEME (Default) ===== */
+:root {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --border-color: #e2e8f0;
+  --accent: #6366f1;
+  --accent-light: #eef2ff;
+  --accent-shadow: rgba(99, 102, 241, 0.3);
+  --hover-bg: #f1f5f9;
+}
+
+/* ===== DARK THEME ===== */
+[data-theme="dark"] {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --border-color: #334155;
+  --accent: #818cf8;
+  --accent-light: #1e1b4b;
+  --accent-shadow: rgba(129, 140, 248, 0.25);
+  --hover-bg: #334155;
+}
