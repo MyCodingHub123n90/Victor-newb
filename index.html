@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -25,7 +25,7 @@
             <h2>Welcome Back</h2>
             <p>Login to access VictorNewb</p>
           </div>
-          <form id="loginFormElement" onsubmit="return Auth.login(event)">
+          <form id="loginFormElement" onsubmit="return Auth.login(event);">
             <div class="form-group">
               <label>Email Address</label>
               <input
@@ -62,7 +62,7 @@
             <h2>Create Account</h2>
             <p>Join VictorNewb today</p>
           </div>
-          <form id="signupFormElement" onsubmit="return Auth.signup(event)">
+          <form id="signupFormElement" onsubmit="return Auth.signup(event);">
             <div class="form-group">
               <label>Full Name</label>
               <input
@@ -136,6 +136,47 @@
             <span class="icon">📊</span>
             <span>Dashboard</span>
           </li>
+          <li data-page="dashboard" class="active">
+            <a href="help.html"><i class="fas fa-question-circle"></i> Help</a>
+          </li>
+          <li data-page="dashboard" class="active">
+            <span>
+              <a href="chat.html"
+                ><i class="fas fa-comment-dots"></i> Live Chat</a
+              ></span
+            >
+          </li>
+          <li data-page="dashboard" class="active">
+            <a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a>
+          </li>
+          <!-- Login/Logout links -->
+          <li data-page="dashboard" class="active">
+            <a href="signup.html"><i class="fas fa-user-plus"></i> Sign Up</a>
+          </li>
+
+          <li data-page="social">
+            <span class="icon"
+              ><a href="mailbox.html"
+                ><i class="fas fa-envelope"></i> Mailbox
+                <span id="headerBadge" class="badge" style="display: none"
+                  >0</span
+                ></a
+              ></span
+            >
+            <span>Mail</span>
+          </li>
+          <li data-page="social">
+            <span class="icon"
+              ><a href="contact.html"
+                ><i class="fas fa-envelope"></i> Contact
+                <span id="headerBadge" class="badge" style="display: none"
+                  >0</span
+                ></a
+              ></span
+            >
+            <span>Contact Us</span>
+          </li>
+
           <li data-page="social">
             <span class="icon">👥</span>
             <span>Social</span>
