@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Help Center - VictorNewb</title>
+    <link rel="stylesheet" href="css/help.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Navigation (matches your style) -->
+    <div class="navbar">
+      <div class="nav-left">
+        <a href="index.html" class="logo">Victor<span>Newb</span></a>
+      </div>
+      <div class="nav-right">
+        <a href="index.html">Home</a>
+        <a href="help.html" class="active">Help</a>
+        <a href="chat.html">Live Chat</a>
+        <a href="#"><i class="fas fa-user-circle"></i> Login</a>
+      </div>
+    </div>
+
+    <!-- Help Hero Section -->
+    <section class="help-hero">
+      <h1><i class="fas fa-life-ring"></i> How Can We Help You?</h1>
+      <p>Find answers to common questions or contact our support team</p>
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input
+          type="text"
+          id="searchHelp"
+          placeholder="Search for help topics..."
+        />
+      </div>
+    </section>
+
+    <!-- Help Categories -->
+    <section class="help-categories">
+      <div class="category-grid">
+        <div class="category-card" onclick="showTopic('getting-started')">
+          <i class="fas fa-rocket"></i>
+          <h3>Getting Started</h3>
+          <p>Learn the basics of coding</p>
+        </div>
+        <div class="category-card" onclick="showTopic('html-css')">
+          <i class="fab fa-html5"></i>
+          <h3>HTML & CSS</h3>
+          <p>Build beautiful websites</p>
+        </div>
+        <div class="category-card" onclick="showTopic('javascript')">
+          <i class="fab fa-js"></i>
+          <h3>JavaScript</h3>
+          <p>Make your sites interactive</p>
+        </div>
+        <div class="category-card" onclick="showTopic('python')">
+          <i class="fab fa-python"></i>
+          <h3>Python</h3>
+          <p>Start with backend coding</p>
+        </div>
+        <div class="category-card" onclick="showTopic('troubleshooting')">
+          <i class="fas fa-wrench"></i>
+          <h3>Troubleshooting</h3>
+          <p>Fix common coding errors</p>
+        </div>
+        <div class="category-card" onclick="showTopic('account')">
+          <i class="fas fa-user-cog"></i>
+          <h3>Account & Settings</h3>
+          <p>Manage your profile</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+      <h2><i class="fas fa-question-circle"></i> Frequently Asked Questions</h2>
+      <div class="faq-container">
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <h3>How do I start learning to code?</h3>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>
+              Start with our free tutorials! We recommend beginning with HTML &
+              CSS, then moving to JavaScript. Check out our "Getting Started"
+              category above for curated learning paths.
+            </p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <h3>Is VictorNewb completely free?</h3>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>
+              Yes! All our tutorials, code examples, and learning resources are
+              completely free. We believe in making coding education accessible
+              to everyone.
+            </p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <h3>How can I get help with my code?</h3>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>
+              You can use our Live Chat feature (click the button in the top
+              nav) to chat with our community or support team. You can also
+              browse our tutorial sections for solutions.
+            </p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <h3>What programming languages do you cover?</h3>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>
+              We currently cover HTML, CSS, JavaScript, Python, and Java. We're
+              constantly adding new content based on user requests!
+            </p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <h3>Can I contribute to VictorNewb?</h3>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>
+              Absolutely! We welcome contributors. Email us at
+              victornewb@support.com or reach out via Live Chat to learn how you
+              can contribute tutorials or code examples.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Support -->
+    <section class="contact-support">
+      <h2><i class="fas fa-headset"></i> Still Need Help?</h2>
+      <p>Our support team is ready to assist you</p>
+      <div class="contact-options">
+        <div class="contact-card">
+          <i class="fas fa-comments"></i>
+          <h3>Live Chat</h3>
+          <p>Chat with us instantly</p>
+          <a href="chat.html" class="btn-chat">Start Chat</a>
+        </div>
+        <div class="contact-card">
+          <i class="fas fa-envelope"></i>
+          <h3>Email Support</h3>
+          <p>We'll respond within 24 hours</p>
+          <a href="mailto:victornewb@support.com" class="btn-email"
+            >Send Email</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2026 VictorNewb. Made with ❤️ for learners everywhere.</p>
+    </footer>
+
+    <script src="js/help.js"></script>
+  </body>
+</html>
