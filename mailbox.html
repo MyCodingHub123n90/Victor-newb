@@ -1,0 +1,1087 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mailbox - VictorNewb</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+      body {
+        background: #0a0a0a;
+        color: #fff;
+        min-height: 100vh;
+      }
+
+      /* Navigation */
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 50px;
+        background: rgba(10, 10, 10, 0.95);
+        border-bottom: 1px solid #1a1a1a;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+      .logo {
+        font-size: 28px;
+        font-weight: bold;
+        color: #fff;
+        text-decoration: none;
+      }
+      .logo span {
+        color: #00ff88;
+      }
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+      .nav-right a {
+        color: #b0b0b0;
+        text-decoration: none;
+        transition: 0.3s;
+      }
+      .nav-right a:hover,
+      .nav-right a.active {
+        color: #00ff88;
+      }
+      .user-name {
+        color: #00ff88;
+        font-weight: 500;
+      }
+      .logout-btn {
+        background: transparent;
+        border: 2px solid #ff4444;
+        color: #ff4444;
+        padding: 8px 20px;
+        border-radius: 50px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: 0.3s;
+      }
+      .logout-btn:hover {
+        background: #ff4444;
+        color: #fff;
+      }
+      .badge {
+        background: #ff4444;
+        color: #fff;
+        border-radius: 50%;
+        padding: 2px 8px;
+        font-size: 12px;
+        margin-left: 5px;
+      }
+
+      /* Mailbox Container */
+      .mailbox-container {
+        max-width: 1200px;
+        margin: 30px auto;
+        padding: 0 20px;
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        gap: 25px;
+        min-height: 70vh;
+      }
+
+      /* Sidebar */
+      .mailbox-sidebar {
+        background: #141414;
+        border-radius: 15px;
+        border: 1px solid #1a1a1a;
+        padding: 25px;
+        height: fit-content;
+      }
+      .compose-btn {
+        width: 100%;
+        padding: 14px;
+        background: #00ff88;
+        color: #0a0a0a;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+        margin-bottom: 25px;
+      }
+      .compose-btn:hover {
+        background: #00cc6a;
+        transform: translateY(-2px);
+      }
+      .compose-btn i {
+        margin-right: 8px;
+      }
+
+      .folder-list {
+        list-style: none;
+      }
+      .folder-list li {
+        padding: 12px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #b0b0b0;
+      }
+      .folder-list li:hover,
+      .folder-list li.active {
+        background: #1a1a1a;
+        color: #00ff88;
+      }
+      .folder-list li i {
+        margin-right: 12px;
+        width: 20px;
+      }
+      .folder-list .count {
+        background: #1a1a1a;
+        padding: 2px 10px;
+        border-radius: 12px;
+        font-size: 12px;
+        color: #888;
+      }
+      .folder-list li.active .count {
+        background: #00ff88;
+        color: #0a0a0a;
+      }
+
+      /* Message List */
+      .mailbox-main {
+        background: #141414;
+        border-radius: 15px;
+        border: 1px solid #1a1a1a;
+        overflow: hidden;
+      }
+      .mailbox-header {
+        padding: 20px 25px;
+        border-bottom: 1px solid #1a1a1a;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .mailbox-header h2 {
+        font-size: 22px;
+      }
+      .mailbox-header h2 i {
+        color: #00ff88;
+        margin-right: 10px;
+      }
+      .mailbox-actions {
+        display: flex;
+        gap: 10px;
+      }
+      .mailbox-actions button {
+        background: transparent;
+        border: 1px solid #2a2a2a;
+        color: #b0b0b0;
+        padding: 8px 14px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      .mailbox-actions button:hover {
+        border-color: #00ff88;
+        color: #00ff88;
+      }
+
+      /* Message List Items */
+      .message-list {
+        padding: 0;
+      }
+      .message-item {
+        padding: 16px 25px;
+        border-bottom: 1px solid #1a1a1a;
+        cursor: pointer;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+      .message-item:hover {
+        background: #1a1a1a;
+      }
+      .message-item.unread {
+        background: rgba(0, 255, 136, 0.05);
+      }
+      .message-item.unread .subject {
+        font-weight: 600;
+        color: #fff;
+      }
+      .message-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #00ff88;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #0a0a0a;
+        font-weight: 600;
+        font-size: 16px;
+        flex-shrink: 0;
+      }
+      .message-info {
+        flex: 1;
+        min-width: 0;
+      }
+      .message-info .sender {
+        font-weight: 500;
+        color: #fff;
+        font-size: 15px;
+      }
+      .message-info .subject {
+        color: #b0b0b0;
+        font-size: 14px;
+        margin-top: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .message-info .preview {
+        color: #666;
+        font-size: 13px;
+        margin-top: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .message-meta {
+        text-align: right;
+        flex-shrink: 0;
+      }
+      .message-meta .time {
+        color: #666;
+        font-size: 12px;
+      }
+      .message-meta .unread-dot {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        background: #00ff88;
+        border-radius: 50%;
+        margin-top: 5px;
+      }
+      .empty-messages {
+        padding: 60px 20px;
+        text-align: center;
+        color: #666;
+      }
+      .empty-messages i {
+        font-size: 50px;
+        color: #2a2a2a;
+        margin-bottom: 15px;
+      }
+      .empty-messages h3 {
+        color: #b0b0b0;
+        margin-bottom: 5px;
+      }
+
+      /* Compose Modal */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+      }
+      .modal.show {
+        display: flex;
+      }
+      .modal-content {
+        background: #141414;
+        border-radius: 20px;
+        border: 1px solid #1a1a1a;
+        max-width: 550px;
+        width: 95%;
+        padding: 35px;
+        animation: slideUp 0.3s ease;
+      }
+      @keyframes slideUp {
+        from {
+          transform: translateY(50px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+      }
+      .modal-header h3 {
+        font-size: 22px;
+      }
+      .modal-header h3 i {
+        color: #00ff88;
+        margin-right: 10px;
+      }
+      .modal-close {
+        background: transparent;
+        border: none;
+        color: #666;
+        font-size: 24px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      .modal-close:hover {
+        color: #fff;
+      }
+      .modal .form-group {
+        margin-bottom: 18px;
+      }
+      .modal .form-group label {
+        display: block;
+        color: #b0b0b0;
+        font-size: 14px;
+        margin-bottom: 6px;
+      }
+      .modal .form-group input,
+      .modal .form-group textarea {
+        width: 100%;
+        padding: 12px 16px;
+        background: #1a1a1a;
+        border: 2px solid #2a2a2a;
+        border-radius: 10px;
+        color: #fff;
+        font-size: 15px;
+        transition: 0.3s;
+      }
+      .modal .form-group input:focus,
+      .modal .form-group textarea:focus {
+        outline: none;
+        border-color: #00ff88;
+      }
+      .modal .form-group textarea {
+        height: 120px;
+        resize: vertical;
+      }
+      .modal .send-btn {
+        width: 100%;
+        padding: 14px;
+        background: #00ff88;
+        color: #0a0a0a;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      .modal .send-btn:hover {
+        background: #00cc6a;
+      }
+
+      /* Message View Modal */
+      .message-view {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 9998;
+        align-items: center;
+        justify-content: center;
+      }
+      .message-view.show {
+        display: flex;
+      }
+      .message-view .modal-content {
+        max-width: 600px;
+      }
+      .message-view .msg-sender {
+        color: #00ff88;
+        font-weight: 600;
+        font-size: 18px;
+      }
+      .message-view .msg-subject {
+        color: #fff;
+        font-size: 20px;
+        margin: 10px 0;
+      }
+      .message-view .msg-body {
+        color: #b0b0b0;
+        line-height: 1.8;
+        padding: 15px 0;
+        border-top: 1px solid #1a1a1a;
+        border-bottom: 1px solid #1a1a1a;
+        margin: 15px 0;
+        white-space: pre-wrap;
+      }
+      .message-view .msg-time {
+        color: #666;
+        font-size: 13px;
+      }
+      .message-view .reply-btn {
+        padding: 10px 25px;
+        background: #00ff88;
+        color: #0a0a0a;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+        margin-top: 15px;
+      }
+      .message-view .reply-btn:hover {
+        background: #00cc6a;
+      }
+
+      /* Notification Toast */
+      .toast {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #141414;
+        border: 1px solid #00ff88;
+        border-radius: 12px;
+        padding: 16px 24px;
+        color: #fff;
+        z-index: 10000;
+        display: none;
+        animation: slideIn 0.5s ease;
+        max-width: 400px;
+      }
+      .toast.show {
+        display: block;
+      }
+      .toast i {
+        color: #00ff88;
+        margin-right: 10px;
+      }
+      @keyframes slideIn {
+        from {
+          transform: translateX(100px);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      /* Footer */
+      footer {
+        text-align: center;
+        padding: 30px;
+        color: #666;
+        border-top: 1px solid #1a1a1a;
+        margin-top: 30px;
+      }
+
+      @media (max-width: 768px) {
+        .nav {
+          flex-direction: column;
+          gap: 15px;
+          padding: 15px 20px;
+        }
+        .mailbox-container {
+          grid-template-columns: 1fr;
+          padding: 0 15px;
+          margin: 15px auto;
+        }
+        .mailbox-sidebar {
+          order: 2;
+        }
+        .mailbox-main {
+          order: 1;
+        }
+        .message-item {
+          padding: 12px 15px;
+          flex-wrap: wrap;
+        }
+        .message-meta {
+          width: 100%;
+          text-align: left;
+          margin-left: 55px;
+        }
+        .modal-content {
+          padding: 25px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="nav">
+      <a href="index.html" class="logo">Victor<span>Newb</span></a>
+      <div class="nav-right">
+        <span class="user-name">👤 <span id="userName">User</span></span>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="help.html">Help</a>
+        <a href="chat.html">Chat</a>
+        <a href="mailbox.html" class="active"
+          >📬 Mailbox
+          <span id="unreadBadge" class="badge" style="display: none">0</span></a
+        >
+        <button onclick="logout()" class="logout-btn">Logout</button>
+      </div>
+    </nav>
+
+    <!-- Mailbox Container -->
+    <div class="mailbox-container">
+      <!-- Sidebar -->
+      <div class="mailbox-sidebar">
+        <button class="compose-btn" onclick="openCompose()">
+          <i class="fas fa-pen"></i> Compose Message
+        </button>
+        <ul class="folder-list">
+          <li class="active" onclick="filterMessages('inbox')">
+            <span><i class="fas fa-inbox"></i> Inbox</span>
+            <span class="count" id="inboxCount">0</span>
+          </li>
+          <li onclick="filterMessages('unread')">
+            <span><i class="fas fa-envelope"></i> Unread</span>
+            <span class="count" id="unreadCount">0</span>
+          </li>
+          <li onclick="filterMessages('sent')">
+            <span><i class="fas fa-paper-plane"></i> Sent</span>
+            <span class="count" id="sentCount">0</span>
+          </li>
+          <li onclick="filterMessages('support')">
+            <span><i class="fas fa-headset"></i> Support</span>
+            <span class="count" id="supportCount">0</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Main Mailbox -->
+      <div class="mailbox-main">
+        <div class="mailbox-header">
+          <h2>
+            <i class="fas fa-inbox"></i> <span id="folderTitle">Inbox</span>
+          </h2>
+          <div class="mailbox-actions">
+            <button onclick="refreshMailbox()">
+              <i class="fas fa-sync"></i>
+            </button>
+            <button onclick="markAllRead()">
+              <i class="fas fa-check-double"></i>
+            </button>
+          </div>
+        </div>
+        <div class="message-list" id="messageList">
+          <!-- Messages will be rendered here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Compose Modal -->
+    <div class="modal" id="composeModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3><i class="fas fa-pen"></i> New Message</h3>
+          <button class="modal-close" onclick="closeCompose()">&times;</button>
+        </div>
+        <form onsubmit="sendMessage(event)">
+          <div class="form-group">
+            <label>To</label>
+            <input
+              type="email"
+              id="composeTo"
+              placeholder="Enter recipient email"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label>Subject</label>
+            <input
+              type="text"
+              id="composeSubject"
+              placeholder="Enter subject"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea
+              id="composeBody"
+              placeholder="Write your message here..."
+              required
+            ></textarea>
+          </div>
+          <button type="submit" class="send-btn">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Message View Modal -->
+    <div class="message-view" id="messageView">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3><i class="fas fa-envelope-open-text"></i> Message</h3>
+          <button class="modal-close" onclick="closeMessageView()">
+            &times;
+          </button>
+        </div>
+        <div id="messageDetail">
+          <div class="msg-sender" id="viewSender">From: User</div>
+          <div class="msg-subject" id="viewSubject">Subject</div>
+          <div class="msg-body" id="viewBody">Message content here...</div>
+          <div class="msg-time" id="viewTime">Just now</div>
+          <button class="reply-btn" onclick="replyToMessage()">
+            <i class="fas fa-reply"></i> Reply
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+      <i class="fas fa-check-circle"></i>
+      <span id="toastMessage">Message sent!</span>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 VictorNewb. Made with ❤️ for learners everywhere.</p>
+    </footer>
+
+    <script>
+      // ============================================
+      // MAILBOX SYSTEM
+      // ============================================
+
+      // Get current user
+      const currentUser = JSON.parse(
+        localStorage.getItem("victor_current") || "null",
+      );
+      if (!currentUser) {
+        window.location.href = "login.html";
+      }
+
+      // Show user name
+      document.getElementById("userName").textContent = currentUser.name;
+
+      // Get messages from storage
+      function getMessages() {
+        return JSON.parse(localStorage.getItem("victor_messages") || "[]");
+      }
+
+      // Save messages to storage
+      function saveMessages(messages) {
+        localStorage.setItem("victor_messages", JSON.stringify(messages));
+      }
+
+      // Get user email
+      function getUserEmail() {
+        return currentUser.email;
+      }
+
+      // ============ SEND MESSAGE ============
+      function sendMessage(e) {
+        e.preventDefault();
+        const to = document.getElementById("composeTo").value.trim();
+        const subject = document.getElementById("composeSubject").value.trim();
+        const body = document.getElementById("composeBody").value.trim();
+
+        if (!to || !subject || !body) {
+          showToast("Please fill in all fields!", "error");
+          return;
+        }
+
+        // Check if recipient exists (or is support email)
+        const users = JSON.parse(localStorage.getItem("victor_users") || "[]");
+
+        // FIXED: Support email is now victornemerem4real@gmail.com
+        const isSupport = to === "victornemerem4real@gmail.com";
+
+        if (!isSupport) {
+          const recipient = users.find((u) => u.email === to);
+          if (!recipient) {
+            showToast("User not found! Please check the email.", "error");
+            return;
+          }
+        }
+
+        // Create message
+        const message = {
+          id: Date.now().toString(),
+          from: getUserEmail(),
+          fromName: currentUser.name,
+          to: to,
+          toName: isSupport
+            ? "VictorNewb Support"
+            : users.find((u) => u.email === to)?.name || to,
+          subject: subject,
+          body: body,
+          timestamp: new Date().toISOString(),
+          read: false,
+          folder: "inbox",
+          isSupport: isSupport,
+        };
+
+        // Save message (for both sender and recipient)
+        const messages = getMessages();
+
+        // Add to recipient's inbox (if support, add to support folder)
+        messages.push({
+          ...message,
+          folder: isSupport ? "support" : "inbox",
+        });
+
+        // Add to sender's sent
+        messages.push({
+          ...message,
+          folder: "sent",
+          read: true, // Sent messages are marked as read
+        });
+
+        saveMessages(messages);
+        closeCompose();
+        showToast("✅ Message sent successfully!", "success");
+        refreshMailbox();
+        updateCounts();
+      }
+
+      // ============ LOAD MESSAGES ============
+      function loadMessages(filter = "inbox") {
+        const messages = getMessages();
+        const userEmail = getUserEmail();
+        const list = document.getElementById("messageList");
+
+        // Filter messages based on current user and folder
+        let filtered = messages.filter((msg) => {
+          if (filter === "inbox") {
+            return msg.to === userEmail && msg.folder === "inbox";
+          } else if (filter === "sent") {
+            return msg.from === userEmail && msg.folder === "sent";
+          } else if (filter === "unread") {
+            return msg.to === userEmail && msg.folder === "inbox" && !msg.read;
+          } else if (filter === "support") {
+            return (
+              (msg.to === userEmail || msg.from === userEmail) &&
+              msg.isSupport === true
+            );
+          }
+          return false;
+        });
+
+        // Sort by newest first
+        filtered.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+        // Update folder title
+        document.getElementById("folderTitle").textContent =
+          filter === "inbox"
+            ? "Inbox"
+            : filter === "sent"
+              ? "Sent"
+              : filter === "unread"
+                ? "Unread"
+                : filter === "support"
+                  ? "Support"
+                  : "Inbox";
+
+        // Render messages
+        if (filtered.length === 0) {
+          list.innerHTML = `
+                    <div class="empty-messages">
+                        <i class="fas fa-inbox"></i>
+                        <h3>No messages found</h3>
+                        <p>Your ${filter === "inbox" ? "inbox" : filter === "sent" ? "sent" : filter === "unread" ? "unread" : "support"} is empty</p>
+                    </div>
+                `;
+          return;
+        }
+
+        list.innerHTML = filtered
+          .map(
+            (msg) => `
+                <div class="message-item ${msg.read ? "" : "unread"}" onclick="openMessage('${msg.id}')">
+                    <div class="message-avatar">${msg.fromName ? msg.fromName.charAt(0).toUpperCase() : "?"}</div>
+                    <div class="message-info">
+                        <div class="sender">${msg.fromName || msg.from}</div>
+                        <div class="subject">${msg.subject}</div>
+                        <div class="preview">${msg.body.substring(0, 60)}${msg.body.length > 60 ? "..." : ""}</div>
+                    </div>
+                    <div class="message-meta">
+                        <div class="time">${formatTime(msg.timestamp)}</div>
+                        ${!msg.read ? '<div class="unread-dot"></div>' : ""}
+                    </div>
+                </div>
+            `,
+          )
+          .join("");
+      }
+
+      // ============ OPEN MESSAGE ============
+      function openMessage(id) {
+        const messages = getMessages();
+        const msg = messages.find((m) => m.id === id);
+
+        if (!msg) return;
+
+        // Mark as read
+        if (!msg.read && msg.to === getUserEmail()) {
+          msg.read = true;
+          saveMessages(messages);
+          updateCounts();
+        }
+
+        // Show message view
+        document.getElementById("viewSender").textContent =
+          `From: ${msg.fromName || msg.from}`;
+        document.getElementById("viewSubject").textContent = msg.subject;
+        document.getElementById("viewBody").textContent = msg.body;
+        document.getElementById("viewTime").textContent = formatTime(
+          msg.timestamp,
+        );
+        document.getElementById("messageView").classList.add("show");
+        document.getElementById("messageView").dataset.messageId = id;
+      }
+
+      function closeMessageView() {
+        document.getElementById("messageView").classList.remove("show");
+        refreshMailbox();
+      }
+
+      // ============ REPLY TO MESSAGE ============
+      function replyToMessage() {
+        const view = document.getElementById("messageView");
+        const id = view.dataset.messageId;
+        const messages = getMessages();
+        const msg = messages.find((m) => m.id === id);
+
+        if (msg) {
+          closeMessageView();
+          openCompose();
+          document.getElementById("composeTo").value = msg.from;
+          document.getElementById("composeSubject").value =
+            `Re: ${msg.subject}`;
+          document.getElementById("composeBody").value =
+            `\n\n--- Original Message ---\nFrom: ${msg.fromName}\n${msg.body}`;
+        }
+      }
+
+      // ============ FILTER MESSAGES ============
+      function filterMessages(filter) {
+        // Update active folder
+        document
+          .querySelectorAll(".folder-list li")
+          .forEach((li) => li.classList.remove("active"));
+        const items = document.querySelectorAll(".folder-list li");
+        const index = {
+          inbox: 0,
+          unread: 1,
+          sent: 2,
+          support: 3,
+        };
+        if (items[index[filter]]) {
+          items[index[filter]].classList.add("active");
+        }
+        loadMessages(filter);
+      }
+
+      // ============ UPDATE COUNTS ============
+      function updateCounts() {
+        const messages = getMessages();
+        const userEmail = getUserEmail();
+
+        const inbox = messages.filter(
+          (m) => m.to === userEmail && m.folder === "inbox",
+        );
+        const unread = inbox.filter((m) => !m.read);
+        const sent = messages.filter(
+          (m) => m.from === userEmail && m.folder === "sent",
+        );
+        const support = messages.filter(
+          (m) => (m.to === userEmail || m.from === userEmail) && m.isSupport,
+        );
+
+        document.getElementById("inboxCount").textContent = inbox.length;
+        document.getElementById("unreadCount").textContent = unread.length;
+        document.getElementById("sentCount").textContent = sent.length;
+        document.getElementById("supportCount").textContent = support.length;
+
+        // Update badge
+        const badge = document.getElementById("unreadBadge");
+        if (unread.length > 0) {
+          badge.style.display = "inline";
+          badge.textContent = unread.length;
+        } else {
+          badge.style.display = "none";
+        }
+      }
+
+      // ============ MARK ALL READ ============
+      function markAllRead() {
+        const messages = getMessages();
+        const userEmail = getUserEmail();
+
+        messages.forEach((msg) => {
+          if (msg.to === userEmail && msg.folder === "inbox") {
+            msg.read = true;
+          }
+        });
+
+        saveMessages(messages);
+        updateCounts();
+        refreshMailbox();
+        showToast("✅ All messages marked as read!", "success");
+      }
+
+      // ============ REFRESH ============
+      function refreshMailbox() {
+        const active = document.querySelector(".folder-list li.active");
+        const filter = active
+          ? active.textContent.trim().toLowerCase() === "inbox"
+            ? "inbox"
+            : active.textContent.trim().toLowerCase() === "unread"
+              ? "unread"
+              : active.textContent.trim().toLowerCase() === "sent"
+                ? "sent"
+                : active.textContent.trim().toLowerCase() === "support"
+                  ? "support"
+                  : "inbox"
+          : "inbox";
+        loadMessages(filter);
+        updateCounts();
+      }
+
+      // ============ COMPOSE ============
+      function openCompose() {
+        document.getElementById("composeModal").classList.add("show");
+        document.getElementById("composeTo").value = "";
+        document.getElementById("composeSubject").value = "";
+        document.getElementById("composeBody").value = "";
+      }
+
+      function closeCompose() {
+        document.getElementById("composeModal").classList.remove("show");
+      }
+
+      // ============ TOAST NOTIFICATION ============
+      function showToast(message, type = "success") {
+        const toast = document.getElementById("toast");
+        const toastMsg = document.getElementById("toastMessage");
+        toastMsg.textContent = message;
+        toast.style.borderColor = type === "error" ? "#ff4444" : "#00ff88";
+        toast.querySelector("i").style.color =
+          type === "error" ? "#ff4444" : "#00ff88";
+        toast.classList.add("show");
+
+        setTimeout(() => {
+          toast.classList.remove("show");
+        }, 4000);
+      }
+
+      // ============ UTILITY FUNCTIONS ============
+      function formatTime(timestamp) {
+        const date = new Date(timestamp);
+        const now = new Date();
+        const diff = Math.floor((now - date) / 1000);
+
+        if (diff < 60) return "Just now";
+        if (diff < 3600) return Math.floor(diff / 60) + "m ago";
+        if (diff < 86400) return Math.floor(diff / 3600) + "h ago";
+        if (diff < 604800) return Math.floor(diff / 86400) + "d ago";
+
+        return date.toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+        });
+      }
+
+      function logout() {
+        if (confirm("Logout?")) {
+          localStorage.removeItem("victor_current");
+          window.location.href = "index.html";
+        }
+      }
+
+      // ============ ADD SAMPLE MESSAGES ============
+      function addSampleMessages() {
+        const messages = getMessages();
+        const userEmail = getUserEmail();
+        const hasMessages = messages.some(
+          (m) => m.to === userEmail || m.from === userEmail,
+        );
+
+        if (!hasMessages) {
+          const samples = [
+            {
+              from: "victornemerem4real@gmail.com",
+              fromName: "VictorNewb Support",
+              to: userEmail,
+              toName: currentUser.name,
+              subject: "Welcome to VictorNewb! 🎉",
+              body: `Hi ${currentUser.name}! 👋\n\nWelcome to VictorNewb! We're excited to have you here.\n\nHere are some quick tips to get started:\n1. Check out our tutorials in the Help Center\n2. Join the Live Chat for instant support\n3. Start learning with our free courses\n\nHappy coding!\n- The VictorNewb Team ❤️`,
+              timestamp: new Date(Date.now() - 3600000).toISOString(),
+              read: false,
+              folder: "support",
+              isSupport: true,
+            },
+            {
+              from: "community@victornewb.com",
+              fromName: "VictorNewb Community",
+              to: userEmail,
+              toName: currentUser.name,
+              subject: "Coding Challenge: Build a Website",
+              body: `Hey ${currentUser.name}! 🚀\n\nJoin our weekly coding challenge!\n\nThis week: Build a personal portfolio website using HTML & CSS.\n\nSubmit your project by Friday for a chance to be featured!\n\nGood luck! 🌟`,
+              timestamp: new Date(Date.now() - 86400000).toISOString(),
+              read: false,
+              folder: "inbox",
+              isSupport: false,
+            },
+          ];
+
+          samples.forEach((msg) => {
+            messages.push(msg);
+          });
+
+          saveMessages(messages);
+        }
+      }
+
+      // Initialize
+      addSampleMessages();
+      refreshMailbox();
+      updateCounts();
+
+      // Auto-refresh every 30 seconds
+      setInterval(() => {
+        refreshMailbox();
+      }, 30000);
+
+      // Close modals on outside click
+      document
+        .getElementById("composeModal")
+        .addEventListener("click", function (e) {
+          if (e.target === this) closeCompose();
+        });
+      document
+        .getElementById("messageView")
+        .addEventListener("click", function (e) {
+          if (e.target === this) closeMessageView();
+        });
+
+      console.log(
+        "📬 VictorNewb Mailbox loaded! Support: victornemerem4real@gmail.com",
+      );
+    </script>
+  </body>
+</html>
