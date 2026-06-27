@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact - VictorNewb</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+      body {
+        background: #0a0a0a;
+        color: #fff;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .contact-box {
+        background: #141414;
+        padding: 50px 40px;
+        border-radius: 20px;
+        border: 1px solid #1a1a1a;
+        max-width: 500px;
+        width: 100%;
+      }
+      .contact-box h1 {
+        text-align: center;
+        margin-bottom: 8px;
+      }
+      .contact-box h1 span {
+        color: #00ff88;
+      }
+      .contact-box .sub {
+        color: #888;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        display: block;
+        color: #b0b0b0;
+        font-size: 14px;
+        margin-bottom: 6px;
+      }
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 14px 16px;
+        background: #1a1a1a;
+        border: 2px solid #2a2a2a;
+        border-radius: 10px;
+        color: #fff;
+        font-size: 15px;
+        transition: 0.3s;
+      }
+      .form-group input:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: #00ff88;
+      }
+      .form-group textarea {
+        height: 120px;
+        resize: vertical;
+      }
+      .send-btn {
+        width: 100%;
+        padding: 16px;
+        background: #00ff88;
+        color: #0a0a0a;
+        border: none;
+        border-radius: 10px;
+        font-size: 17px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      .send-btn:hover {
+        background: #00cc6a;
+        transform: translateY(-2px);
+      }
+      .msg {
+        padding: 12px 16px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        display: none;
+      }
+      .msg.success {
+        background: #00ff88;
+        color: #0a0a0a;
+        display: block;
+      }
+      .msg.error {
+        background: #ff4444;
+        color: #fff;
+        display: block;
+      }
+      .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        color: #888;
+        text-decoration: none;
+      }
+      .back-link:hover {
+        color: #00ff88;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="contact-box">
+      <h1>Victor<span>Newb</span></h1>
+      <p class="sub">📧 Send us a message</p>
+
+      <div id="message" class="msg"></div>
+
+      <!-- REPLACE with your real email -->
+      <form
+        action="https://formsubmit.co/victornemerem4real@gmail.com"
+        method="POST"
+      >
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_template" value="table" />
+        <input
+          type="hidden"
+          name="_subject"
+          value="New Message from VictorNewb"
+        />
+        <input
+          type="hidden"
+          name="_next"
+          value="https://mycodinghub123n90.github.io/Victor-newb/"
+        />
+
+        <div class="form-group">
+          <label>Your Name</label>
+          <input
+            type="text"
+            name="name"
+            placeholder="Enter your name"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label>Your Email</label>
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter your email"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label>Subject</label>
+          <input
+            type="text"
+            name="subject"
+            placeholder="What's this about?"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea
+            name="message"
+            placeholder="Write your message here..."
+            required
+          ></textarea>
+        </div>
+        <button type="submit" class="send-btn">📧 Send Email</button>
+      </form>
+
+      <a href="index.html" class="back-link">← Back to Home</a>
+    </div>
+  </body>
+</html>
